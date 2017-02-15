@@ -12,10 +12,10 @@ typedef struct Node{
 
 typedef node* position;
 
-node* new(){
+node* new(int w){
     node* p= (node*)malloc(sizeof(node));
     p->np = NULL;
-    p->num = 100;
+    p->num = w;
     return p;
 }
 
@@ -33,41 +33,41 @@ node* Findp(node* root,int w){
         return root;
 }
 
-int node_lenth(node*p){
+int LL_lenth(node*p){
     int n = 0;
     node* tmp = p;
     while(tmp){
         n++;
         tmp = tmp->np;
     }
-    return n;
+    return n-1;
 }
 
 void tail_insert(node* root,int w){
-    while(root->np !=NULL)
+    while(root->np != NULL)
         root = root->np;
-    root->np = new();
-    root->np->num = w;
-    root->np->np = NULL;
+    root->np = new(w);
+    //printf("%d\n",root->np->num);
 }
 
 void node_print(node* root){
-    while(root->np!=NULL){
+    root = root->np;
+    while(root!=NULL){
         printf("%d\n",root->num);
         root = root->np;
     }
 }
 
 void main(){
-    int a[]={10,20,30,40,50,60,70,80,90};
-    int N = sizeof(a);
-
-    node* root = new();
-    root->num = 123456789;
+    int a[]={1,2,3,4,22,3};
+    int N = sizeof(a)/sizeof(int);
+    printf("%d\n",N);
+    node* root = new(101);
 
     int i;
     for(i=0;i<N;i++){
         tail_insert(root,a[i]);
     }
     node_print(root);
+    printf("%d\n",LL_lenth(root));
 }

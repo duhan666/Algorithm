@@ -58,16 +58,48 @@ void node_print(node* root){
     }
 }
 
+node* find(int x,node* p){
+    node* tmp = p->np;
+    while( p!=NULL && p->num!=x )
+        p = p->np;
+    return p;
+}
+
+node* previous(int x,node* p){
+    node* tmp = p->np;
+    while(tmp->np!=NULL && tmp->np->num!=x){
+        tmp = tmp->np;
+    }
+    return tmp;
+}
+
+void delete(int x,node* p){
+    node* tmp = find(x,p);
+    node* ptmp = previous(x,p);
+    ptmp->np = tmp->np;
+    free(tmp);
+}
+
 void main(){
     int a[]={1,2,3,4,22,3};
     int N = sizeof(a)/sizeof(int);
-    printf("%d\n",N);
+
     node* root = new(101);
 
     int i;
     for(i=0;i<N;i++){
         tail_insert(root,a[i]);
     }
+
+    node* prep = previous(3,root);
+    if(prep == NULL )
+        printf("the number is not found!");
+    else
+        printf("the previous num is %d\n",prep->num );
+
+    delete(3,root);
     node_print(root);
-    printf("%d\n",LL_lenth(root));
+    delete(3,root);
+    node_print(root);
+
 }

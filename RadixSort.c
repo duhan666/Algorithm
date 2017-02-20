@@ -37,6 +37,7 @@ void add_tail_link(node* root,node* L){
         root = root->next;
     root->next = L->next;
     L->next = NULL;
+    //free(L);
 }
 
 void print_node_num(node* root){
@@ -79,7 +80,7 @@ int num_num(int *x,int N){    //caculate the max digit of the array
 }
 
 main(){
-    int a[] = {1,2,3,4,568,6,7110,8,9};
+    int a[] = {1,2,3,4,568,6,7110,8,9,126,16,45,4,1253,7453,9652,852,741};
     int N = sizeof(a)/sizeof(int);
     int D = num_num(a,N);
     //printf("the MAX Digit is %d\n",D);

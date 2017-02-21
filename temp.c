@@ -1,9 +1,14 @@
 
 #include <stdio.h>
-#include <math.h>
+#include <stdlib.h>
+
+
 
 void main(){
-    printf("%d\n",1578/(int)pow(10,2)%10);
-
+    int c;
+    while(c!='\n'){
+        c = getchar();
+        printf("blank");
+    }
 }
 

@@ -3,14 +3,14 @@
 #include <stdlib.h>
 
 
+int strcomp(char *p,char *s){
+    while((*p!='\0') && (*p++==*s++));
+    printf("%c  %c\n",*p,*s);
+    return *p-*s;
+}
 
 void main(){
-char s[10]= "12345";
-char *p = "abcdef";
-
-*(p+1) = 'w';
-
-printf("%c\n",*p);
-
+    int c = strcomp("home","tools");
+    printf("%d\n",c);
 }
 

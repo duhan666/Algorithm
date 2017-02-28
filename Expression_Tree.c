@@ -60,19 +60,33 @@ treep pops(){
         printf("the stack is empty!");
 }
 
+void treeprint(treep node){
+    treep tmp = node;
+    if(tmp!=NULL){
+
+        //printf("this tree node\n");
+        treeprint(tmp->left);
+        treeprint(tmp->right);
+        printf("%c\n",tmp->s);
+    }
+}
+
+
 void main(){
     char c;
+    treep tmp;
     while((c=getchar())!='\n'){
-        treep tmp = new_node(c);
-        if(IsAlpha(c))
+        tmp = new_node(c);
+        if(IsAlpha(c)){
             pushs(tmp);
+        }
         if(IsOperator(c)){
-            tmp->left = pops();
             tmp->right = pops();
+            tmp->left = pops();
             pushs(tmp);
         }
     }
-
+    treeprint(tmp);
 }
 
 

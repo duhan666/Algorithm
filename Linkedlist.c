@@ -10,7 +10,7 @@ typedef struct Node{
     struct Node* np;
 } node;
 
-typedef node* position;
+//typedef node* position;
 
 node* new(int w){
     node* p= (node*)malloc(sizeof(node));
@@ -27,11 +27,12 @@ int IsLast(position p){
     return p->np == NULL;       //if position p is the last one,return 1;
 }
 
+/*
 node* Findp(node* root,int w){
         while(root->num!=w && root->np!=NULL)
             root =  root->np;
         return root;
-}
+}*/
 
 int LL_lenth(node*p){
     int n = 0;
@@ -58,7 +59,7 @@ void node_print(node* root){
     }
 }
 
-node* find(int x,node* p){
+node* findp(int x,node* p){
     node* tmp = p->np;
     while( p!=NULL && p->num!=x )
         p = p->np;
@@ -73,12 +74,19 @@ node* previous(int x,node* p){
     return tmp;
 }
 
-void delete(int x,node* p){
-    node* tmp = find(x,p);
+void deletep(int x,node* p){
+    node* tmp = findp(x,p);
     node* ptmp = previous(x,p);
     ptmp->np = tmp->np;
     free(tmp);
 }
+
+void addnode(int x,node* posi){
+    node* tmp = new(x);
+    tmp->np = posi->np;
+    posi->np = tmp;
+}
+
 
 void main(){
     int a[]={1,2,3,4,22,3};
@@ -97,9 +105,9 @@ void main(){
     else
         printf("the previous num is %d\n",prep->num );
 
-    delete(3,root);
-    node_print(root);
-    delete(3,root);
-    node_print(root);
 
+    node* posi = findp(4,root);
+    addnode(188,posi);
+
+    node_print(root);
 }

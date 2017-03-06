@@ -59,7 +59,8 @@ int hdelmin(heapp H){
     int i = 1;
     int min = H->hp[1];
     int last = H->hp[H->hsize];
-    while(i<H->hsize){
+    printf("the last one is %d\n",last);
+    while(2*i+1<H->hsize){
         if(H->hp[2*i]<H->hp[2*i+1]){
             H->hp[i] = H->hp[2*i];
             i = 2*i;
@@ -68,27 +69,39 @@ int hdelmin(heapp H){
             H->hp[i] = H->hp[2*i+1];
             i = 2*i+1;
 
-        printf("%d\n",i);
+        //printf("%d\n",i);
         }
     }
+    //printf("the last i is %d\n",i);
+    //printf("the last itoho is %d\n",H->hp[13]);
     H->hp[i] = last;
     H->hsize--;
     return min;
+}
+
+void printheep(heapp H){
+    int i;
+    for(i=1;i<=H->hsize;i++)
+        printf("%d\n",H->hp[i]);
 }
 
 void main(){
     heapp root;
     root = initilize();
     int a[]={24,31,19,13,21,16,68,65,26,32};
+    int N = sizeof(a)/sizeof(int);
     int i;
     for(i=0;i<10;i++)
         hinsert(a[i],root);
-    for(i=0;i<10;i++)
-        printf("%d\n",root->hp[i+1]);
 
-    hdelmin(root);
+    printheep(root);
 
-    for(i=0;i<10;i++)
-        printf("%d\n",root->hp[i+1]);
+    int c;
+    c = hdelmin(root);
+    printf("the deleted one is %d\n",c);
+    c = hdelmin(root);
+    printf("the deleted one is %d\n",c);
+
+    printheep(root);
 }
 

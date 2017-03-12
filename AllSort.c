@@ -5,6 +5,27 @@
 #include <stdio.h>
 #define alen 10
 
+#define LeftChild(i) (2*(i)+1)
+
+
+void precdowm(int* a,int i,int N){
+    int child;
+    int temp;
+    for(temp = a[i];LeftChild(i)<N;i=child){
+        child = LeftChild(i);
+        if(child!=N-1&&a[child+1]>a[child])
+            child++,printf("choise 1\n");
+        if(temp<a[child])
+            a[i]=a[child],printf("choise 2\n");
+        else
+        {
+            printf("choise 3\n");
+            break;
+        }
+    }
+    a[i]=temp;
+}
+
 void PrecolateDown(int* a,int i,int N){
     int tmp;
     for(i;2*i+1<N;i=2*i+1){
@@ -15,6 +36,27 @@ void PrecolateDown(int* a,int i,int N){
             tmp = a[i],a[i]=a[child],a[child]=tmp;
     }
 }
+
+void HeapSortPrecolate(int* a,int i,int N){
+    int child,temp = a[i];
+
+    for(i;i*2+1<N;i=child){
+        child = 2*i+1;
+
+        if(child!=N-1&&a[child]<a[child+1])
+            child++;
+
+        if(temp<a[child])
+            a[i] = a[child];
+        else
+            break;
+
+    }
+
+    a[i] = temp;
+
+}
+
 
 
 void InsertSort(int* a,int N){
@@ -45,17 +87,29 @@ void ShellSort(int* a,int N){
 
 void main(){
     int a[alen];
-    int i;
+    int i,temp;
     for(i=0;i<alen;i++)
         a[i]=rand()%67;
 
     for(i=0;i<alen;i++)
         printf("%d\n",a[i]);
 
-    PrecolateDown(a,4,10);
     printf("\n");
+
+    for(i=alen/2;i>=0;i--){
+        HeapSortPrecolate(a,i,alen);
+    }
 
     for(i=0;i<alen;i++)
         printf("%d\n",a[i]);
+    printf("\n");
 
+    for(i=alen-1;i>=0;i--){
+        temp = a[0];
+        a[0] = a[i];
+        a[i] = temp;
+        HeapSortPrecolate(a,0,i);
+    }
+    for(i=0;i<alen;i++)
+        printf("%d\n",a[i]);
 }

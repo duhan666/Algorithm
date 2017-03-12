@@ -3,7 +3,19 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#define alen 20
+#define alen 10
+
+void PrecolateDown(int* a,int i,int N){
+    int tmp;
+    for(i;2*i+1<N;i=2*i+1){
+        int child = 2*i+1;
+        if(child<N-1&&a[child]<a[child+1])
+            child++;
+        if(a[i]<a[child])
+            tmp = a[i],a[i]=a[child],a[child]=tmp;
+    }
+}
+
 
 void InsertSort(int* a,int N){
     int i,j,temp;
@@ -35,12 +47,13 @@ void main(){
     int a[alen];
     int i;
     for(i=0;i<alen;i++)
-        a[i]=rand()/100;
+        a[i]=rand()%67;
 
     for(i=0;i<alen;i++)
-        //printf("%d\n",a[i]);
+        printf("%d\n",a[i]);
 
-    ShellSort(a,alen);
+    PrecolateDown(a,4,10);
+    printf("\n");
 
     for(i=0;i<alen;i++)
         printf("%d\n",a[i]);

@@ -5,35 +5,63 @@
 #include <stdio.h>
 #define alen 10
 
-void Merge(int*a,int Na,int*b,int Nb){
-    int ia,ib,it;
-    ia=ib=it=0;
-    int tmp[Na+Nb];
-    while(it<Na+Nb){
-        if(ia<Na&&ib<Nb){
-            if(a[ia]<b[ib])
-                tmp[it]=a[ia],ia++;
-            else
-                tmp[it]=b[ib],ib++;
-            it++;
-        }
-        else if(ia>=Na)
-            while(ib<Nb)
-                tmp[it++] = b[ib++];
-        else
-            while(ia<Na)
-                tmp[it++] = a[ia++];
-    }
-    for(it=0;it<Na+Nb;it++)
-        printf("%d\n",tmp[it]);
 
+
+void Merge(int a[],int tmp[],int Lp,int Rp,int End){
+    int ptmp = Lp;
+    int bg = Lp;
+    int mid = Rp;
+    while(ptmp<End+1){
+        if(Lp<mid&&Rp<End+1){
+            if(a[Lp]<a[Rp])
+                tmp[ptmp++] = a[Lp++];
+            else
+                tmp[ptmp++] = a[Rp++];
+        }
+        else if(Lp<mid)
+            while(ptmp<End+1)tmp[ptmp++] = a[Lp++];
+        else
+            while(ptmp<End+1)tmp[ptmp++] = a[Rp++];
+    }
+    int i;
+    for(i=bg;i<End-bg+1;i++)
+        a[i]=tmp[i];
+    for(i=bg;i<End-bg+1;i++)
+        printf("%d\t",a[i]);
+}
+
+void Msort(int a[],int tmp[],int begin,int end){
+    int center;
+    if(begin<end){
+        center = (begin+end)/2;
+        Msort(a,tmp,begin,center);
+        Msort(a,tmp,center+1,end);
+        Merge(a,tmp,begin,center+1,end);
+        printf("Msort\n");
+    }
+}
+
+void MergeSort(int a[],int N){
+    int *tmp = malloc(N*sizeof(int));
+    if(tmp!=NULL)
+        Msort(a,tmp,0,N-1);
+    else
+        printf("Not Enough Room For MergeSort!\n");
+    printf("MergeSort\n");
 }
 
 void main(){
-    int a[5]={1,3,4,7,8};
-    int b[5]={2,4,6,9,10};
-    Merge(a,5,b,5);
+    int a[] = {4,3,2,1};
+    int N = sizeof(a)/sizeof(int);
+    //int *tmp=malloc(N*sizeof(int));
+    MergeSort(a,N);
+    //Merge(a,tmp,0,2,3);
+    int i;
+    for(i=0;i<N;i++)
+        printf("%d\n",a[i]);
 }
+
+
 
 
 

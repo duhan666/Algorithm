@@ -19,15 +19,15 @@ void Merge(int a[],int tmp[],int Lp,int Rp,int End){
                 tmp[ptmp++] = a[Rp++];
         }
         else if(Lp<mid)
-            while(ptmp<End+1)tmp[ptmp++] = a[Lp++];
+            tmp[ptmp++] = a[Lp++];
         else
-            while(ptmp<End+1)tmp[ptmp++] = a[Rp++];
+            tmp[ptmp++] = a[Rp++];
     }
     int i;
-    for(i=bg;i<End-bg+1;i++)
+    for(i=bg;i<End+1;i++)
         a[i]=tmp[i];
-    for(i=bg;i<End-bg+1;i++)
-        printf("%d\t",a[i]);
+
+
 }
 
 void Msort(int a[],int tmp[],int begin,int end){
@@ -37,7 +37,7 @@ void Msort(int a[],int tmp[],int begin,int end){
         Msort(a,tmp,begin,center);
         Msort(a,tmp,center+1,end);
         Merge(a,tmp,begin,center+1,end);
-        printf("Msort\n");
+        //printf("Msort\n");
     }
 }
 
@@ -47,15 +47,14 @@ void MergeSort(int a[],int N){
         Msort(a,tmp,0,N-1);
     else
         printf("Not Enough Room For MergeSort!\n");
-    printf("MergeSort\n");
 }
 
 void main(){
-    int a[] = {4,3,2,1};
+    int a[] = {4,3,2,6,1,5,8,6,6,7,9};
     int N = sizeof(a)/sizeof(int);
     //int *tmp=malloc(N*sizeof(int));
+    //Merge(a,tmp,2,3,3);
     MergeSort(a,N);
-    //Merge(a,tmp,0,2,3);
     int i;
     for(i=0;i<N;i++)
         printf("%d\n",a[i]);
